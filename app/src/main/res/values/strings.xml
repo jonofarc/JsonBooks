@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BooksList</string>
+    <string name="text_view_item_name">Text View Item Name</string>
 </resources>
