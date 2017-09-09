@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     OkHttpClient client;
     private String[] resultList;
 
+    public Book[] book;
     private ImageView profilePictureIV;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void setRecyclerView(){
-        Log.d(TAG, "setRecyclerView: "+ resultList[0]);
+
         mRecyclerView = (RecyclerView) findViewById(R.id.myRecyclerView);
 
         // use this setting to improve performance if you know that changes
@@ -71,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
         // specify an adapter (see also next example)
 
-        mAdapter = new BooksAdapter(resultList);
+        //mAdapter = new BooksAdapter(resultList);
+        mAdapter = new BooksAdapter(book);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -91,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
 
                     }
 
+
+
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
 
@@ -103,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                                 Gson gson = new Gson();
-                                final Book[] book =  gson.fromJson(resp, Book[].class);
+                                book =  gson.fromJson(resp, Book[].class);
 
                                 final StringBuilder resultsString = new StringBuilder();
                                 resultList=new String[book.length];
@@ -136,6 +140,13 @@ public class MainActivity extends AppCompatActivity {
 
                             Log.d(TAG, "onResponse resp:  "+ resp);
 
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    setRecyclerView();
+                                }
+                            });
 
                         }else{
                             Log.d(TAG, "onResponse: Application Error");
@@ -146,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                     }
+
                 }
         );
 
