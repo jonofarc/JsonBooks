@@ -31,12 +31,12 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG =MainActivity.class.getSimpleName()+"._TAG";
     private static final String BASE_URL ="http://de-coding-test.s3.amazonaws.com/books.json";
-    TextView resultsTV;
+
     OkHttpClient client;
-    private String[] resultList;
+
 
     public Book[] book;
-    private ImageView profilePictureIV;
+
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -46,14 +46,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        resultsTV= (TextView) findViewById(R.id.tv_results);
-        profilePictureIV= (ImageView) findViewById(R.id.iv_profilePicture);
         client = new OkHttpClient.Builder().build();
-
-        getBooks();
-
-
-
 
     }
 
@@ -109,27 +102,8 @@ public class MainActivity extends AppCompatActivity {
                                 Gson gson = new Gson();
                                 book =  gson.fromJson(resp, Book[].class);
 
-                                final StringBuilder resultsString = new StringBuilder();
-                                resultList=new String[book.length];
-
-                                for(int i = 0 ; i<book.length; i++){
-                                    resultsString.append(book[i].getTitle().toString()+"\n");
-                                    resultList[i]=book[i].getTitle().toString();
-                                }
-
-                                URL url = new URL(book[0].getImageURL());
-                                final Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
 
 
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-
-                                        resultsTV.setText(resultsString.toString());
-                                        profilePictureIV.setImageBitmap(bmp);
-
-                                    }
-                                });
 
 
                             }catch (JsonParseException e){
@@ -167,6 +141,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void getMyBooks(View view) {
-        setRecyclerView();
+        getBooks();
     }
 }

@@ -14,20 +14,11 @@
         android:onClick="getMyBooks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <ImageView
-        android:id="@+id/iv_profilePicture"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/portrait_placeholder" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/myRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <TextView
-        android:id="@+id/tv_results"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"/>
 
 </LinearLayout>
